@@ -217,7 +217,7 @@ export default function Hero() {
       ref={sectionRef}
       id="hero"
       className="hero-viewport-height relative overflow-hidden"
-      style={{ background: "#111111" }}
+      style={{ background: "#111111", contain: "paint" }}
     >
       {/* ── React Bits Ghost Cursor Effect (Desktop only — disabled on touch/mobile to prevent WebKit canvas seams and GPU overhead) ── */}
       <div className="hidden md:block pointer-events-none">
@@ -265,7 +265,7 @@ export default function Hero() {
       {/* ── Radial spotlight behind 3D core (Vibrant Orange Secondary Accent Glow) ── */}
       <div
         ref={spotlightRef}
-        className="absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] pointer-events-none opacity-0 z-[6]"
+        className="absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] md:w-[800px] md:h-[800px] max-w-full pointer-events-none opacity-0 z-[6]"
         style={{
           background:
             "radial-gradient(circle, rgba(252,107,47,0.15) 0%, rgba(252,107,47,0.04) 35%, transparent 70%)",

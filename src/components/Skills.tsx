@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import SectionHeading from "./SectionHeading";
 import DriftWall, { DriftWallItem } from "./DriftWall";
 
@@ -40,6 +40,17 @@ const SKILLS: Skill[] = [
 ];
 
 export default function Skills() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const updateSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   const driftWallItems: DriftWallItem[] = useMemo(() => {
     return SKILLS.map((skill) => ({
       image: "/images/skill-tile-bg.png",
@@ -49,7 +60,11 @@ export default function Skills() {
   }, []);
 
   return (
-    <section id="skills" className="relative py-24 md:py-36 overflow-hidden">
+    <section
+      id="skills"
+      className="relative py-24 md:py-36 overflow-hidden"
+      style={{ contain: "paint" }}
+    >
       {/* Background accent */}
       <div
         className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-iron to-transparent"
@@ -64,23 +79,26 @@ export default function Skills() {
           align="center"
         />
 
-        {/* DriftWall 3D animated skills container - full screen full bleed */}
-        <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen h-screen overflow-hidden -translate-x-12 sm:-translate-x-16">
+        {/* DriftWall 3D animated skills container - cleanly contained on mobile, full-bleed on desktop */}
+        <div
+          className="relative -mx-5 sm:-mx-6 md:mx-0 md:left-1/2 md:right-1/2 md:-ml-[50vw] md:-mr-[50vw] md:w-screen h-[65vh] min-h-[460px] md:h-screen overflow-hidden md:-translate-x-16"
+          style={{ contain: "paint" }}
+        >
           <DriftWall
             items={driftWallItems}
-            columns={6}
-            tileWidth={210}
-            tileHeight={138}
-            gap={20}
-            tilt={14}
-            turn={-16}
+            columns={isMobile ? 3 : 6}
+            tileWidth={isMobile ? 120 : 210}
+            tileHeight={isMobile ? 80 : 138}
+            gap={isMobile ? 12 : 20}
+            tilt={isMobile ? 8 : 14}
+            turn={isMobile ? -8 : -16}
             perspective={1000}
-            depth={100}
+            depth={isMobile ? 40 : 100}
             speed={40}
             direction="up"
             variance={0.4}
             parallax={0.6}
-            lift={65}
+            lift={isMobile ? 25 : 65}
             fade={0.4}
             dim={0.6}
             overlayColor="#050505"

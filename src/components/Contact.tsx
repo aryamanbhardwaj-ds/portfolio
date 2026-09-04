@@ -55,8 +55,8 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative py-32 md:py-48"
-      style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+      className="relative py-32 md:py-48 overflow-hidden"
+      style={{ fontFamily: "var(--font-poppins), sans-serif", contain: "paint" }}
     >
       <div
         className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-iron to-transparent"
@@ -65,7 +65,7 @@ export default function Contact() {
 
       {/* Background glow */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[320px] sm:w-[600px] md:w-[800px] h-[400px] max-w-full pointer-events-none"
         style={{
           background: "radial-gradient(ellipse, rgba(252,107,47,0.12) 0%, transparent 70%)",
           filter: "blur(80px)",
@@ -96,10 +96,10 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 min-w-0">
           {/* Contact info card */}
           <div
-            className="contact-animate glass-card p-8 md:p-10 flex flex-col justify-between"
+            className="contact-animate glass-card p-6 sm:p-8 md:p-10 flex flex-col justify-between min-w-0 max-w-full overflow-hidden"
             style={{ fontFamily: "var(--font-poppins), sans-serif" }}
           >
             <div>
@@ -118,11 +118,11 @@ export default function Contact() {
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                     </svg>
                   </span>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="text-xs text-ash uppercase tracking-wider mb-1 font-semibold">Email</p>
                     <a
                       href="mailto:aryamannbhardwaj0001@gmail.com"
-                      className="text-sm text-white hover:text-ember transition-colors font-medium"
+                      className="text-xs sm:text-sm text-white hover:text-ember transition-colors font-medium break-all block"
                       style={{ fontFamily: "var(--font-poppins), sans-serif" }}
                     >
                       aryamannbhardwaj0001@gmail.com
@@ -224,7 +224,7 @@ export default function Contact() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="contact-animate glass-card p-8 md:p-10 space-y-6"
+            className="contact-animate glass-card p-6 sm:p-8 md:p-10 space-y-6 min-w-0 max-w-full"
             style={{ fontFamily: "var(--font-poppins), sans-serif" }}
           >
             <div>

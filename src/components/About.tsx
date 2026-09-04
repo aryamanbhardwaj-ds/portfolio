@@ -120,13 +120,17 @@ export default function About() {
 
       // Timeline items reveal
       if (timelineRef.current) {
+        const isMobile = typeof window !== "undefined" ? window.innerWidth < 768 : false;
         const items = timelineRef.current.querySelectorAll(".timeline-item");
         items.forEach((item, i) => {
           gsap.fromTo(
             item,
-            { x: i % 2 === 0 ? -50 : 50, opacity: 0 },
+            isMobile
+              ? { y: 30, opacity: 0 }
+              : { x: i % 2 === 0 ? -50 : 50, opacity: 0 },
             {
               x: 0,
+              y: 0,
               opacity: 1,
               duration: 1,
               ease: "expo.out",
@@ -145,7 +149,7 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="relative pt-16 pb-32 md:py-48">
+    <section ref={sectionRef} id="about" className="relative pt-16 pb-32 md:py-48 overflow-hidden">
       <div className="section-container">
         <SectionHeading
           eyebrow="About Me"
@@ -185,7 +189,7 @@ export default function About() {
           </span>
         </div>
 
-        <div ref={timelineRef} className="relative">
+        <div ref={timelineRef} className="relative overflow-hidden">
           {/* Animated line */}
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-iron">
             <div
@@ -207,7 +211,7 @@ export default function About() {
                 } pl-12 md:pl-0`}
               >
                 {/* Content */}
-                <div className={`md:w-[calc(50%-30px)] ${i % 2 === 0 ? "md:text-right" : ""}`}>
+                <div className={`w-full min-w-0 md:w-[calc(50%-30px)] ${i % 2 === 0 ? "md:text-right" : ""}`}>
                   <div className="glass-card p-6 md:p-8">
                     <span
                       className="text-ember text-sm font-bold"

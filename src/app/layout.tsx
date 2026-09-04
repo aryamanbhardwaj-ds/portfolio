@@ -1,6 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, Poppins, Josefin_Sans } from "next/font/google";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -83,7 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} ${poppins.variable} ${josefinSans.variable} antialiased`}
     >
-      <body className="min-h-screen bg-void text-cloud overflow-x-hidden">
+      <body className="min-h-screen bg-void text-cloud">
         {children}
       </body>
     </html>

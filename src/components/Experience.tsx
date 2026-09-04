@@ -102,7 +102,7 @@ export default function Experience() {
       ref={sectionRef}
       id="experience"
       className="relative py-32 md:py-48 overflow-hidden"
-      style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+      style={{ fontFamily: "var(--font-poppins), sans-serif", contain: "paint" }}
     >
       {/* Divider line */}
       <div
@@ -112,7 +112,7 @@ export default function Experience() {
 
       {/* Background ambient lighting */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-15 pointer-events-none blur-[150px]"
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[320px] sm:w-[500px] md:w-[600px] h-[300px] max-w-full rounded-full opacity-15 pointer-events-none blur-[150px]"
         style={{ backgroundColor: "var(--ember)" }}
       />
 
