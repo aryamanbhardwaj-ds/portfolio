@@ -301,7 +301,7 @@ export default function Hero() {
           className="text-[11px] text-[#B5B5B5] tracking-[0.2em] uppercase font-medium"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          Shipping Ideas Into Reality.
+          Turning Data Into Decisions.
         </span>
       </div>
 

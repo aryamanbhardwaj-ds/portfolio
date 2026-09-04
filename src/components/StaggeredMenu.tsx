@@ -423,7 +423,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             className="text-white font-bold text-xl tracking-tight"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            <span className="text-ember">J</span>M
+            <span className="text-ember">A</span>B
             <span className="text-ember">.</span>
           </a>
         </div>

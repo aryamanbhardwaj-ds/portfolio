@@ -90,7 +90,7 @@ export default function Navbar() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <span className="text-ember">J</span>M
+            <span className="text-ember">A</span>B
             <span className="text-ember">.</span>
           </a>
 
