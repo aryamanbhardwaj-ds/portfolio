@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useMemo, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -125,14 +125,77 @@ function ParticleField({ count = 100 }: { count?: number }) {
   );
 }
 
+/* ── Resize & Camera Controller ── */
+function CanvasResizeController({
+  containerRef,
+}: {
+  containerRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  const setSize = useThree((state) => state.setSize);
+  const setDpr = useThree((state) => state.setDpr);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleResize = () => {
+      const rect = container.getBoundingClientRect();
+      const width = Math.max(1, Math.floor(rect.width || container.clientWidth || window.innerWidth));
+      const height = Math.max(1, Math.floor(rect.height || container.clientHeight || window.innerHeight));
+
+      const dpr = Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 2);
+      setDpr(dpr);
+      setSize(width, height);
+    };
+
+    handleResize();
+
+    const ro = new ResizeObserver(() => {
+      handleResize();
+    });
+    ro.observe(container);
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    const raf = requestAnimationFrame(handleResize);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, [setSize, setDpr, containerRef]);
+
+  return null;
+}
+
+function ResponsiveCamera() {
+  useFrame(({ camera, size }) => {
+    const targetZ = size.width < 768 ? 8.5 : 7;
+    if (camera.position.z !== targetZ) {
+      camera.position.z = targetZ;
+    }
+  });
+  return null;
+}
+
 export default function HeroScene() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="absolute inset-0 pointer-events-none z-[12]" aria-hidden="true">
+    <div
+      ref={containerRef}
+      className="absolute inset-0 w-full h-full pointer-events-none z-[12] overflow-hidden"
+      style={{ width: "100%", height: "100%" }}
+      aria-hidden="true"
+    >
       <Canvas
         camera={{ position: [0, 0, 7], fov: 45 }}
         dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
-        style={{ background: "transparent" }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        style={{ width: "100%", height: "100%", display: "block", background: "transparent" }}
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
@@ -142,6 +205,9 @@ export default function HeroScene() {
         <CentralCore />
         <OrbitalRings />
         <ParticleField count={140} />
+
+        <ResponsiveCamera />
+        <CanvasResizeController containerRef={containerRef} />
       </Canvas>
     </div>
   );

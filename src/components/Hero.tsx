@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MagneticButton from "./MagneticButton";
 import GhostCursor from "./GhostCursor";
 import TextPressure from "./TextPressure";
+import HeroScene from "./HeroScene";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -208,24 +209,29 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative h-screen overflow-hidden"
+      className="relative min-h-screen h-screen h-[100svh] overflow-hidden"
       style={{ background: "#111111" }}
     >
-      {/* ── React Bits Ghost Cursor Effect (Vibrant Orange Secondary Accent Glow) ── */}
-      <GhostCursor
-        color="#FC6B2F"
-        brightness={0.75}
-        edgeIntensity={0}
-        trailLength={35}
-        inertia={0.4}
-        grainIntensity={0.025}
-        bloomStrength={0.08}
-        bloomRadius={0.8}
-        bloomThreshold={0.04}
-        fadeDelayMs={800}
-        fadeDurationMs={1200}
-        zIndex={10}
-      />
+      {/* ── React Bits Ghost Cursor Effect (Desktop only — disabled on touch/mobile to prevent WebKit canvas seams and GPU overhead) ── */}
+      <div className="hidden md:block pointer-events-none">
+        <GhostCursor
+          color="#FC6B2F"
+          brightness={0.75}
+          edgeIntensity={0}
+          trailLength={35}
+          inertia={0.4}
+          grainIntensity={0.025}
+          bloomStrength={0.08}
+          bloomRadius={0.8}
+          bloomThreshold={0.04}
+          fadeDelayMs={800}
+          fadeDurationMs={1200}
+          zIndex={10}
+        />
+      </div>
+
+      {/* ── 3D Central Core, Orbital Rings & Floating Particles ── */}
+      <HeroScene />
 
       {/* ── Grain / noise texture ── */}
       <div
@@ -287,127 +293,127 @@ export default function Hero() {
         ))}
       </div>
 
-
-
-      {/* ════════════════════════════════════════
-          1. TOP LEFT — AVAILABILITY TAG
-         ════════════════════════════════════════ */}
-      <div
-        ref={badgeRef}
-        className="absolute top-20 md:top-24 left-6 md:left-14 lg:left-20 z-[40] opacity-0 flex items-center gap-2.5"
-      >
-        <span className="w-[7px] h-[7px] rounded-full bg-ember animate-pulse" />
-        <span
-          className="text-[11px] text-[#B5B5B5] tracking-[0.2em] uppercase font-medium"
-          style={{ fontFamily: "var(--font-display)" }}
+      {/* ════════════════════════════════════════════════════════════════
+          HERO CONTENT
+          Mobile (< md): Normal vertical flex flow without overlaps.
+          Desktop (md+): Absolute editorial placement.
+         ════════════════════════════════════════════════════════════════ */}
+      <div className="relative md:static z-[30] w-full min-h-screen h-[100vh] h-[100svh] flex flex-col justify-between px-5 sm:px-8 pt-20 sm:pt-24 pb-6 md:block md:min-h-0 md:h-auto md:p-0 pointer-events-none">
+        {/* 1. TOP / EYEBROW — AVAILABILITY TAG */}
+        <div
+          ref={badgeRef}
+          className="relative md:absolute md:top-24 md:left-14 lg:left-20 z-[40] opacity-0 flex items-center justify-center md:justify-start gap-2.5 pointer-events-auto shrink-0 pt-2 md:pt-0"
         >
-          Turning Data Into Decisions.
-        </span>
-      </div>
-
-      {/* ════════════════════════════════════════
-          3. LOWER LEFT — SUPPORTING DESCRIPTION (POPPINS FONT)
-         ════════════════════════════════════════ */}
-      <div
-        ref={paraRef}
-        className="absolute top-[72%] sm:top-[74%] left-6 md:left-14 lg:left-20 z-[40] max-w-[380px] lg:max-w-[420px] opacity-0"
-      >
-        <p
-          className="text-[13px] md:text-[14px] text-[#B5B5B5] leading-[1.8] font-normal tracking-wide"
-          style={{ fontFamily: "var(--font-poppins), sans-serif" }}
-        >
-          Data Analyst turning raw data into actionable insights and strategic business decisions using SQL, Python, Power BI, and Databricks.
-        </p>
-      </div>
-
-      {/* ════════════════════════════════════════
-          4. RIGHT SIDE VERTICAL CTA BUTTONS
-         ════════════════════════════════════════ */}
-      <div
-        ref={ctaRef}
-        className="absolute bottom-[10%] sm:bottom-[12%] right-6 md:right-14 lg:right-20 z-[40] opacity-0 flex flex-col items-end gap-3.5"
-      >
-        <MagneticButton
-          href="#projects"
-          variant="primary"
-          className="!rounded-full !px-7 !py-3.5 !text-[13px] !tracking-wide group shadow-[0_0_25px_rgba(160,42,34,0.4)]"
-        >
-          <span className="flex items-center gap-3">
-            <span className="w-7 h-7 rounded-full border border-void/30 flex items-center justify-center transition-transform duration-500 group-hover:rotate-45">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M1 11L11 1M11 1H3M11 1V9"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            Explore Work →
-          </span>
-        </MagneticButton>
-
-        <MagneticButton
-          href="#contact"
-          variant="outline"
-          className="!rounded-full !px-6 !py-3 !text-[12px] !border-white/15"
-        >
-          Let&apos;s Talk →
-        </MagneticButton>
-      </div>
-
-      {/* ════════════════════════════════════════
-          UPPER-CENTERED NAME TYPOGRAPHY (HIGHER OPACITY) WITH FOOTER TEXT
-         ════════════════════════════════════════ */}
-      <div
-        ref={nameBackRef}
-        className="absolute top-[35%] sm:top-[36%] md:top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[15] pointer-events-none select-none w-full flex flex-col items-center justify-center px-4"
-        aria-hidden="true"
-      >
-        <div className="w-full max-w-[700px] md:max-w-[850px] h-[100px] md:h-[135px] relative flex items-center justify-center scale-y-[1.15] transform-gpu drop-shadow-[0_0_35px_rgba(252,107,47,0.3)]">
-          <TextPressure
-            text="ARYAMAN"
-            flex={true}
-            alpha={false}
-            stroke={false}
-            width={true}
-            weight={true}
-            italic={true}
-            textColor="rgba(255, 255, 255, 0.88)"
-            minFontSize={36}
-          />
-        </div>
-
-        {/* Small footer text at the base of upper-centered ARYAMAN */}
-        <div ref={headlineRef} className="mt-3 md:mt-4 text-center z-[20]">
-          <p
-            className="hero-line text-[clamp(0.72rem,1.08vw,0.88rem)] font-extrabold tracking-[0.25em] uppercase text-ember drop-shadow-[0_0_20px_rgba(252,107,47,0.7)]"
-            style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+          <span className="w-[7px] h-[7px] rounded-full bg-ember animate-pulse" />
+          <span
+            className="text-[10px] sm:text-[11px] text-[#B5B5B5] tracking-[0.2em] uppercase font-medium"
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            Data Analyst — Turning Raw Data into Business Decisions
-          </p>
+            Turning Data Into Decisions.
+          </span>
         </div>
-      </div>
 
-      {/* ── Scroll indicator ── */}
-      <div
-        ref={scrollIndRef}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[45] flex flex-col items-center gap-2 opacity-0"
-      >
-        <span
-          className="text-[9px] text-[#B5B5B5]/60 tracking-[0.35em] uppercase"
-          style={{ fontFamily: "var(--font-display)" }}
+        {/* 2. CENTER — ARYAMAN NAME & RED HEADLINE */}
+        <div
+          ref={nameBackRef}
+          className="relative md:absolute md:top-[38%] md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-[25] pointer-events-none select-none w-full flex flex-col items-center justify-center my-auto py-2 md:my-0 md:py-0 px-2"
+          aria-hidden="true"
         >
-          Scroll
-        </span>
-        <div className="w-[1px] h-6 bg-gradient-to-b from-white/20 to-transparent relative overflow-hidden">
+          <div className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[540px] lg:max-w-[780px] h-[82px] sm:h-[105px] md:h-[160px] lg:h-[225px] relative flex items-center justify-center md:scale-y-[1.15] transform-gpu drop-shadow-[0_0_35px_rgba(252,107,47,0.3)]">
+            <TextPressure
+              text="ARYAMAN"
+              flex={true}
+              alpha={false}
+              stroke={false}
+              width={true}
+              weight={true}
+              italic={true}
+              textColor="rgba(255, 255, 255, 0.88)"
+              minFontSize={20}
+            />
+          </div>
+
+          {/* Headline footer text clearly spaced below ARYAMAN */}
+          <div ref={headlineRef} className="mt-6 sm:mt-8 md:mt-12 lg:mt-16 text-center z-[20] px-2 max-w-[90vw] md:max-w-none">
+            <p
+              className="hero-line text-[10px] sm:text-[11px] md:text-[clamp(0.72rem,1.08vw,0.88rem)] font-bold md:font-extrabold tracking-[0.16em] sm:tracking-[0.2em] md:tracking-[0.25em] uppercase text-ember drop-shadow-[0_0_20px_rgba(252,107,47,0.7)]"
+              style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+            >
+              Data Analyst — Turning Raw Data into Business Decisions
+            </p>
+          </div>
+        </div>
+
+        {/* 3 & 4. BOTTOM GROUP — SUBLINE PARAGRAPH & CTA BUTTONS */}
+        <div className="relative md:static w-full flex flex-col items-center md:block shrink-0 gap-3 md:gap-0 pb-1 md:pb-0 pointer-events-none">
+          {/* Subline paragraph */}
           <div
-            className="absolute w-full h-3 bg-ember/60"
-            style={{
-              animation: "reveal-up 2s ease-in-out infinite",
-            }}
-          />
+            ref={paraRef}
+            className="relative md:absolute md:top-[74%] md:left-14 lg:left-20 z-[40] max-w-[340px] sm:max-w-[380px] md:max-w-[380px] lg:max-w-[420px] opacity-0 text-center md:text-left pointer-events-auto"
+          >
+            <p
+              className="text-[12px] sm:text-[13px] md:text-[14px] text-[#B5B5B5] leading-[1.6] md:leading-[1.8] font-normal tracking-wide"
+              style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+            >
+              Data Analyst turning raw data into actionable insights and strategic business decisions using SQL, Python, Power BI, and Databricks.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div
+            ref={ctaRef}
+            className="relative md:absolute md:bottom-[12%] md:right-14 lg:right-20 z-[40] opacity-0 flex flex-row md:flex-col items-center justify-center md:items-end gap-3 pointer-events-auto mt-2 md:mt-0"
+          >
+            <MagneticButton
+              href="#projects"
+              variant="primary"
+              className="!rounded-full !px-5 sm:!px-7 !py-3 sm:!py-3.5 !text-[12px] sm:!text-[13px] !tracking-wide group shadow-[0_0_25px_rgba(160,42,34,0.4)]"
+            >
+              <span className="flex items-center gap-2 sm:gap-3">
+                <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-void/30 flex items-center justify-center transition-transform duration-500 group-hover:rotate-45">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M1 11L11 1M11 1H3M11 1V9"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+                Explore Work →
+              </span>
+            </MagneticButton>
+
+            <MagneticButton
+              href="#contact"
+              variant="outline"
+              className="!rounded-full !px-5 sm:!px-6 !py-2.5 sm:!py-3 !text-[11px] sm:!text-[12px] !border-white/15"
+            >
+              Let&apos;s Talk →
+            </MagneticButton>
+          </div>
+        </div>
+
+        {/* 5. SCROLL INDICATOR */}
+        <div
+          ref={scrollIndRef}
+          className="relative md:absolute md:bottom-6 md:left-1/2 md:-translate-x-1/2 z-[45] flex flex-col items-center gap-1.5 md:gap-2 opacity-0 shrink-0 mt-2 md:mt-0 pointer-events-auto"
+        >
+          <span
+            className="text-[8px] md:text-[9px] text-[#B5B5B5]/60 tracking-[0.35em] uppercase"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Scroll
+          </span>
+          <div className="w-[1px] h-4 md:h-6 bg-gradient-to-b from-white/20 to-transparent relative overflow-hidden">
+            <div
+              className="absolute w-full h-3 bg-ember/60"
+              style={{
+                animation: "reveal-up 2s ease-in-out infinite",
+              }}
+            />
+          </div>
         </div>
       </div>
 
