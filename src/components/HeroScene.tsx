@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -131,8 +131,7 @@ function CanvasResizeController({
 }: {
   containerRef: React.RefObject<HTMLDivElement | null>;
 }) {
-  const setSize = useThree((state) => state.setSize);
-  const setDpr = useThree((state) => state.setDpr);
+  const { setSize, setDpr } = useThree();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -144,6 +143,7 @@ function CanvasResizeController({
       const height = Math.max(1, Math.floor(rect.height || container.clientHeight || window.innerHeight));
 
       const dpr = Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 2);
+
       setDpr(dpr);
       setSize(width, height);
     };
@@ -172,17 +172,68 @@ function CanvasResizeController({
 }
 
 function ResponsiveCamera() {
-  useFrame(({ camera, size }) => {
+  useFrame(({ camera, gl, size }) => {
     const targetZ = size.width < 768 ? 8.5 : 7;
     if (camera.position.z !== targetZ) {
       camera.position.z = targetZ;
     }
+
+    // Update camera aspect and projection matrix on resize
+    if ("aspect" in camera) {
+      const perspectiveCam = camera as THREE.PerspectiveCamera;
+      const desiredAspect = size.width / Math.max(1, size.height);
+      if (Math.abs(perspectiveCam.aspect - desiredAspect) > 0.001) {
+        perspectiveCam.aspect = desiredAspect;
+        perspectiveCam.updateProjectionMatrix();
+      }
+    }
+
+    // Ensure renderer has capped pixel ratio and matches size
+    const targetDpr = Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 2);
+    if (gl.getPixelRatio() !== targetDpr) {
+      gl.setPixelRatio(targetDpr);
+    }
   });
+
   return null;
 }
 
 export default function HeroScene() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(true);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let isVisible = typeof document !== "undefined" ? document.visibilityState === "visible" : true;
+    let isIntersecting = true;
+
+    const updateActive = () => {
+      setIsActive(isVisible && isIntersecting);
+    };
+
+    const handleVisibilityChange = () => {
+      isVisible = document.visibilityState === "visible";
+      updateActive();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        updateActive();
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div
@@ -192,10 +243,20 @@ export default function HeroScene() {
       aria-hidden="true"
     >
       <Canvas
+        frameloop={isActive ? "always" : "never"}
         camera={{ position: [0, 0, 7], fov: 45 }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        style={{ width: "100%", height: "100%", display: "block", background: "transparent" }}
+        className="!w-full !h-full !absolute !inset-0"
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          display: "block",
+          background: "transparent",
+        }}
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
@@ -204,7 +265,7 @@ export default function HeroScene() {
 
         <CentralCore />
         <OrbitalRings />
-        <ParticleField count={140} />
+        <ParticleField count={100} />
 
         <ResponsiveCamera />
         <CanvasResizeController containerRef={containerRef} />

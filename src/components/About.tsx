@@ -145,7 +145,7 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="relative py-32 md:py-48">
+    <section ref={sectionRef} id="about" className="relative pt-16 pb-32 md:py-48">
       <div className="section-container">
         <SectionHeading
           eyebrow="About Me"

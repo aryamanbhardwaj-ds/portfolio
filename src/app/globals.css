@@ -353,3 +353,21 @@ nextjs-portal,
   display: none !important;
 }
 
+/* ═══════════════════════════════════════════════
+   HERO VIEWPORT HEIGHT & CANVAS FIXES (iOS Safari)
+   ═══════════════════════════════════════════════ */
+
+.hero-viewport-height {
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+#hero canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+
