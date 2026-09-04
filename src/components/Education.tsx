@@ -16,21 +16,48 @@ const EDUCATION = [
   },
 ];
 
-const CERTIFICATIONS = [
+interface Certification {
+  title: string;
+  issuer: string;
+  year?: string;
+  url?: string;
+  code?: string;
+}
+
+const CERTIFICATIONS: Certification[] = [
   {
     title: "Foundations of Data Science",
-    issuer: "Google (Coursera)",
+    issuer: "Google (via Coursera)",
     year: "2025",
+    url: "https://www.coursera.org/account/accomplishments/verify/ODCSP6N4JWTW",
   },
   {
-    title: "Deloitte Australia Data Analytics Job Simulation",
-    issuer: "Forage",
+    title: "Data Analytics Job Simulation",
+    issuer: "Deloitte Australia (via Forage)",
     year: "2025",
+    url: "https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_6a292dc34de3917a9219bcae_1781094766821_completion_certificate.pdf",
+  },
+  {
+    title: "Business Analytics with Excel",
+    issuer: "Microsoft (via Simplilearn SkillUp)",
+    code: "10332648",
+  },
+  {
+    title: "Generative AI Mastermind",
+    issuer: "Outskill",
+  },
+  {
+    title: "Training Certificate: Analytical Software Tools — Trends, Development & Literature Insights",
+    issuer: "DRDO, Institute for Systems Studies & Analyses, Ministry of Defence",
+  },
+  {
+    title: "Summer Internship Certificate",
+    issuer: "HOBIT (Hub of Big Innovations and Technology)",
   },
 ];
 
 const ACHIEVEMENTS = [
-  { value: 3, suffix: "", label: "Analytics Internships" },
+  { value: 4, suffix: "", label: "Analytics Internships" },
   { value: 1, suffix: "M+", label: "Records Analyzed" },
   { value: 40, suffix: "%", label: "Manual Effort Reduced" },
   { value: 20, suffix: "+", label: "Tools & Technologies" },
@@ -126,16 +153,51 @@ export default function Education() {
 
           {/* Certifications */}
           {CERTIFICATIONS.map((cert, i) => (
-            <div key={i} className="edu-card glass-card p-6 group">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h4 className="text-base font-bold text-white mb-1 group-hover:text-ember transition-colors" style={{ fontFamily: "var(--font-display)" }}>
+            <div key={i} className="edu-card glass-card p-6 group flex flex-col justify-between">
+              <div>
+                <div className="flex items-start justify-between gap-4 mb-1">
+                  <h4
+                    className="text-base font-bold text-white group-hover:text-ember transition-colors leading-snug"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
                     {cert.title}
                   </h4>
-                  <p className="text-xs text-ash">{cert.issuer}</p>
+                  {cert.year && (
+                    <span className="text-xs text-ash shrink-0">{cert.year}</span>
+                  )}
                 </div>
-                <span className="text-xs text-ash">{cert.year}</span>
+                <p className="text-xs text-ash leading-relaxed">{cert.issuer}</p>
               </div>
+
+              {/* Verify Link or Certificate Code */}
+              {(cert.url || cert.code) && (
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between flex-wrap gap-2">
+                  {cert.url && (
+                    <a
+                      href={cert.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs text-ember hover:underline font-medium transition-all"
+                    >
+                      <span>Verify Certificate</span>
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                        <path
+                          d="M1 11L11 1M11 1H3M11 1V9"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </a>
+                  )}
+                  {cert.code && (
+                    <span className="text-xs text-ash font-mono">
+                      Code: <span className="text-white font-semibold">{cert.code}</span>
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>

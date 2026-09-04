@@ -50,6 +50,20 @@ const EXPERIENCES = [
       "Cut manual workload by 40% via automation",
     ],
   },
+  {
+    company: "HOBIT (Hub of Big Innovations and Technology)",
+    role: "Data Analyst Intern",
+    duration: "May 2024 — Jul 2024",
+    color: "var(--ember)",
+    glowColor: "rgba(160, 42, 34, 0.25)",
+    description:
+      "Cleaned and standardised 5,000+ rows of regional sales data using SQL and Excel; designed 3 Power BI dashboards tracking regional revenue across product lines and geographies; built a standardised 8-metric KPI framework.",
+    highlights: [
+      "Cleaned and standardised 5,000+ rows of regional sales data using SQL and Excel, resolving 15%+ data inconsistencies across 4 business units",
+      "Designed 3 Power BI dashboards tracking regional revenue across product lines and geographies, surfacing 2 underperforming regions",
+      "Built a standardised 8-metric KPI framework across 4 regions, cutting weekly report prep by ~3 hours per business unit",
+    ],
+  },
 ];
 
 export default function Experience() {

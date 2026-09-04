@@ -133,6 +133,44 @@ export default function Contact() {
                 <div className="flex items-start gap-4">
                   <span className="w-8 h-8 rounded-full bg-ember/10 border border-ember/20 flex items-center justify-center text-ember mt-0.5 shrink-0">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <p className="text-xs text-ash uppercase tracking-wider mb-1 font-semibold">Phone</p>
+                    <a
+                      href="tel:+919315066387"
+                      className="text-sm text-white hover:text-ember transition-colors font-medium"
+                      style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+                    >
+                      +91 93150 66387
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <span className="w-8 h-8 rounded-full bg-ember/10 border border-ember/20 flex items-center justify-center text-ember mt-0.5 shrink-0">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.978-.276-.1-.477-.15-.678.15-.201.3-.777.978-.953 1.179-.176.2-.351.226-.652.075s-1.272-.469-2.423-1.496c-.896-.8-1.5-1.788-1.676-2.089-.176-.3-.019-.462.132-.612.136-.135.301-.35.452-.526.15-.175.2-.3.301-.501.101-.2.05-.376-.025-.526-.075-.15-.678-1.635-.929-2.239-.244-.588-.493-.509-.678-.519l-.578-.01c-.2 0-.526.075-.802.376s-1.054 1.03-1.054 2.511c0 1.48 1.079 2.91 1.23 3.111.15.2 2.124 3.243 5.146 4.548.719.311 1.28.497 1.718.636.722.23 1.378.197 1.9.12.58-.087 1.78-.727 2.03-1.43.251-.703.251-1.305.176-1.43-.075-.125-.276-.2-.577-.35zM12.04 2C6.51 2 2.02 6.49 2.02 12.02c0 1.95.56 3.77 1.53 5.31L2 22l4.82-1.51c1.48.88 3.2 1.39 5.22 1.39 5.53 0 10.02-4.49 10.02-10.02C22.06 6.49 17.57 2 12.04 2zm0 18.25c-1.73 0-3.34-.49-4.72-1.35l-.34-.21-2.86.9.92-2.79-.23-.37a8.216 8.216 0 0 1-1.26-4.41c0-4.56 3.71-8.27 8.27-8.27s8.27 3.71 8.27 8.27c0 4.56-3.71 8.27-8.27 8.27z"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <p className="text-xs text-ash uppercase tracking-wider mb-1 font-semibold">WhatsApp</p>
+                    <a
+                      href="https://wa.me/919315066387"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-white hover:text-ember transition-colors font-medium"
+                      style={{ fontFamily: "var(--font-poppins), sans-serif" }}
+                    >
+                      +91 93150 66387
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <span className="w-8 h-8 rounded-full bg-ember/10 border border-ember/20 flex items-center justify-center text-ember mt-0.5 shrink-0">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
                       <circle cx="12" cy="10" r="3"/>
                     </svg>

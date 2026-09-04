@@ -8,7 +8,7 @@ import SectionHeading from "./SectionHeading";
 gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
-  { value: 3, suffix: "", label: "Analytics Internships" },
+  { value: 4, suffix: "", label: "Analytics Internships" },
   { value: 1, suffix: "M+", label: "Records Analyzed" },
   { value: 40, suffix: "%", label: "Manual Effort Reduced" },
   { value: 20, suffix: "+", label: "Tools & Technologies" },
@@ -20,6 +20,12 @@ const JOURNEY = [
     title: "Foundation in Data Science",
     description:
       "Studied B.Sc. Data Science & Analytics at Sharda University — built the SQL, Python, and statistics foundation.",
+  },
+  {
+    year: "May — Jul 2024",
+    title: "HOBIT — Data Analyst Intern",
+    description:
+      "Cleaned and standardised 5,000+ rows of regional sales data, built 3 Power BI dashboards, and developed an 8-metric KPI framework.",
   },
   {
     year: "Dec 2024 — Apr 2025",
