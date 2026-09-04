@@ -41,8 +41,6 @@ export default function Home() {
           socialItems={[
             { label: "GitHub", link: "https://github.com/aryamanbhardwaj-ds" },
             { label: "LinkedIn", link: "https://www.linkedin.com/in/aryamanbhardwaj-ds/" },
-            { label: "Twitter", link: "https://x.com/Raj57425771" },
-            { label: "Instagram", link: "https://www.instagram.com/echo__builds/?hl=en" },
           ]}
           displaySocials={true}
           displayItemNumbering={true}

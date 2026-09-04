@@ -10,8 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/aryamanbhardwaj-ds", icon: "https://cdn.simpleicons.org/github/ffffff" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/aryamanbhardwaj-ds/", icon: "https://api.iconify.design/simple-icons:linkedin.svg?color=%23ffffff" },
-  { label: "Twitter / X", href: "https://x.com/Raj57425771", icon: "https://cdn.simpleicons.org/x/ffffff" },
-  { label: "Instagram", href: "https://www.instagram.com/echo__builds/?hl=en", icon: "https://cdn.simpleicons.org/instagram/ffffff" },
 ];
 
 export default function Contact() {
@@ -141,7 +139,7 @@ export default function Contact() {
                   </span>
                   <div>
                     <p className="text-xs text-ash uppercase tracking-wider mb-1 font-semibold">Location</p>
-                    <p className="text-sm text-white font-medium">Kolkata, West Bengal, India</p>
+                    <p className="text-sm text-white font-medium">Dehradun, Uttarakhand, India</p>
                   </div>
                 </div>
 
