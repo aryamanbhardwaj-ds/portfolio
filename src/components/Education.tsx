@@ -28,6 +28,13 @@ interface Certification {
 
 const CERTIFICATIONS: Certification[] = [
   {
+    title: "Data Analytics Master Program",
+    issuer: "Brillica Services",
+    year: "September 2026",
+    url: "https://credentials.brillicaservices.com/verify/69240b879a08d09e19ad6bab",
+    image: "/images/certificates/brillica-data-analytics-master-program.png",
+  },
+  {
     title: "Foundations of Data Science",
     issuer: "Google (via Coursera)",
     year: "June 2026",
