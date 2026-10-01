@@ -23,16 +23,20 @@ interface Certification {
   year?: string;
   url?: string;
   code?: string;
+  certNumber?: string;
   image: string;
+  alt?: string;
 }
 
 const CERTIFICATIONS: Certification[] = [
   {
     title: "Data Analytics Master Program",
-    issuer: "Brillica Services",
-    year: "September 2026",
+    issuer: "Brillica Services · Microsoft Partner Network",
+    year: "08 September 2026",
+    certNumber: "BSPL03092026C-10379",
     url: "https://credentials.brillicaservices.com/verify/69240b879a08d09e19ad6bab",
-    image: "/images/certificates/brillica-data-analytics-master-program.png",
+    image: "/images/certificates/brillica-data-analytics-master-program-microsoft.png",
+    alt: "Data Analytics Master Program certificate - Brillica Services, Microsoft Partner Network",
   },
   {
     title: "Foundations of Data Science",
@@ -222,7 +226,7 @@ export default function Education() {
               <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-neutral-100 border border-black/5 flex items-center justify-center">
                 <Image
                   src={cert.image}
-                  alt={`${cert.title} — certificate preview`}
+                  alt={cert.alt || `${cert.title} — certificate preview`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-contain p-2.5 transform group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -268,7 +272,7 @@ export default function Education() {
                 </div>
 
                 {/* Verify Link or Certificate Code */}
-                {(cert.url || cert.code) && (
+                {(cert.url || cert.code || cert.certNumber) && (
                   <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between flex-wrap gap-2">
                     {cert.url && (
                       <a
@@ -293,6 +297,11 @@ export default function Education() {
                     {cert.code && (
                       <span className="text-xs text-ash font-mono">
                         Code: <span className="text-white font-semibold">{cert.code}</span>
+                      </span>
+                    )}
+                    {cert.certNumber && (
+                      <span className="text-xs text-ash font-mono">
+                        Certification No.: <span className="text-white font-semibold">{cert.certNumber}</span>
                       </span>
                     )}
                   </div>
@@ -359,7 +368,7 @@ export default function Education() {
             <div className="relative w-full aspect-[4/3] max-h-[75vh] rounded-2xl overflow-hidden bg-neutral-100 shadow-2xl border border-white/20 flex items-center justify-center">
               <Image
                 src={selectedCert.image}
-                alt={`${selectedCert.title} — full certificate`}
+                alt={selectedCert.alt || `${selectedCert.title} — full certificate`}
                 fill
                 sizes="(max-width: 1024px) 95vw, 1100px"
                 className="object-contain p-3 sm:p-6"
@@ -375,6 +384,7 @@ export default function Education() {
                 {selectedCert.issuer}
                 {selectedCert.year ? ` • ${selectedCert.year}` : ""}
                 {selectedCert.code ? ` • Code: ${selectedCert.code}` : ""}
+                {selectedCert.certNumber ? ` • Certification No.: ${selectedCert.certNumber}` : ""}
               </p>
               {selectedCert.url && (
                 <div className="mt-3">

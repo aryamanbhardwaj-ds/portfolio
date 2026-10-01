@@ -177,7 +177,7 @@ export default function Contact() {
                   </span>
                   <div>
                     <p className="text-xs text-ash uppercase tracking-wider mb-1 font-semibold">Location</p>
-                    <p className="text-sm text-white font-medium">Dehradun, Uttarakhand, India</p>
+                    <p className="text-sm text-white font-medium">Dehradun, Uttarakhand, India · Open to relocate to Gurugram / NCR</p>
                   </div>
                 </div>
 
